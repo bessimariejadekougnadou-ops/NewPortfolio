@@ -1,0 +1,377 @@
+/* ==========================================================================
+   PhoneCardScroll.css — Aaron Iker GSAP ScrollTrigger Phone Roll Card Stack
+   Adapted for Bessi Marie-Jade "À Propos" Section (Pillars & Vision)
+   ========================================================================== */
+
+.phone-mockup-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+@media (min-width: 1024px) {
+  .phone-mockup-wrapper {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+/* Smartphone Outer Body */
+#phone {
+  --headline-y: 0px;
+  --empty-mask: 100%;
+  
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 650px;
+  background: #090514;
+  border-radius: 46px;
+  border: 11px solid #1c1533;
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.18),
+    0 25px 60px -10px rgba(10, 5, 25, 0.75),
+    0 15px 35px -5px rgba(108, 92, 231, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.phone-mockup-wrapper:hover #phone {
+  transform: translateY(-4px) rotateX(2deg);
+  box-shadow: 
+    0 0 0 2px rgba(216, 180, 254, 0.35),
+    0 35px 70px -10px rgba(10, 5, 25, 0.85),
+    0 20px 45px -5px rgba(147, 51, 234, 0.45);
+}
+
+/* Dynamic Island / Notch */
+.phone-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 26px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.island-camera {
+  width: 11px;
+  height: 11px;
+  background: #0a0a14;
+  border: 1.5px solid #1f1f30;
+  border-radius: 50%;
+}
+
+.island-sensor {
+  width: 7px;
+  height: 7px;
+  background: #0e0e1e;
+  border-radius: 50%;
+}
+
+/* Status Bar */
+.phone-status-bar {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 24px 6px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.phone-status-bar .time {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+}
+
+.phone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Phone Inner App Header */
+.phone-app-header {
+  position: relative;
+  z-index: 40;
+  padding: 6px 20px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(15, 10, 30, 0.95) 0%, rgba(15, 10, 30, 0.8) 100%);
+  backdrop-filter: blur(16px);
+}
+
+.phone-app-headline {
+  transform: translateY(var(--headline-y, 0px));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phone-app-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display, 'Syne', sans-serif);
+}
+
+.phone-app-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+/* Scrollable Container */
+#phone .content {
+  position: relative;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px 14px 60px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+#phone .content:active {
+  cursor: grabbing;
+}
+
+#phone .content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Entries Wrapper with large height to drive ScrollTrigger */
+#phone .entries {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 2550px;
+}
+
+/* ==========================================================================
+   ARTICLE / CARD COMPONENT (Controlled by GSAP ScrollTrigger)
+   ========================================================================== */
+#phone article {
+  --to-article-r: 0deg;
+  --to-article-x: 0px;
+  --to-article-y: 0px;
+  --article-r: 0deg;
+  --article-x: 0px;
+  --article-y: 0px;
+  --clip: 0px;
+  --compact-s: 0;
+  --compact-o: 0;
+  --border-radius-h: 22px;
+  --border-radius-v: 22px;
+
+  position: relative;
+  width: 100%;
+  border-radius: var(--border-radius-v, 22px) var(--border-radius-h, 22px);
+  transform: translate(var(--article-x, 0px), var(--article-y, 0px)) rotate(var(--article-r, 0deg));
+  transform-origin: center top;
+  will-change: transform, clip-path, border-radius;
+  box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.55);
+  transition: box-shadow 0.25s ease;
+}
+
+/* Card Themes */
+.card-theme-1 {
+  background: linear-gradient(145deg, #1d143d 0%, #291b54 60%, #392276 100%);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+}
+
+.card-theme-2 {
+  background: linear-gradient(145deg, #131d45 0%, #1a2963 60%, #273e8e 100%);
+  border: 1px solid rgba(147, 197, 253, 0.35);
+}
+
+.card-theme-3 {
+  background: linear-gradient(145deg, #24143a 0%, #361b5c 60%, #4f258a 100%);
+  border: 1px solid rgba(244, 114, 182, 0.35);
+}
+
+.card-theme-4 {
+  background: linear-gradient(145deg, #170d2b 0%, #20113d 60%, #2b1357 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Compact Floating Indicator (scales in when card stacks: --compact-s, --compact-o) */
+.card-compact-header {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+  font-weight: 700;
+  color: #ede9fe;
+  opacity: var(--compact-o, 0);
+  transform: scale(var(--compact-s, 0));
+  transform-origin: top right;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Card Inner Content */
+.card-inner {
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-tag {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #d8b4fe;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-number {
+  font-size: 18px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-display, sans-serif);
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-family: var(--font-display, sans-serif);
+}
+
+.card-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(243, 232, 255, 0.85);
+  font-weight: 400;
+}
+
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-chip {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f3ff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Home Indicator Bar */
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  z-index: 50;
+}
+
+/* Interactive Navigation Pills beside/under phone */
+.phone-nav-controls {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 4px 6px;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(45, 36, 95, 0.1);
+}
+
+.phone-nav-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #17122e;
+  background: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.phone-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.phone-nav-btn.active {
+  background: #17122e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(23, 18, 46, 0.25);
+}
+
+
+/* Agrandit le téléphone entier sans retoucher son contenu interne. */
+.phone-mockup-wrapper {
+  max-width: 520px;
+  transform: scale(1.22);
+  transform-origin: center center;
+}
+
+@media (max-width: 768px) {
+  .phone-mockup-wrapper {
+    transform: scale(1.06);
+  }
+}

@@ -1,0 +1,35 @@
+/* ==========================================================================
+   PosterCosmicIllustration.css
+   Moteur Canvas Cosmique Animé 60 FPS
+   Style Haute-Couture Graphique "Gradient Studies | 11" & Univers Multiples
+   ========================================================================== */
+
+.poster-cosmic-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.poster-cosmic-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* En mode découverte (cartes révélées), le canvas s'estompe légèrement pour préserver la lisibilité */
+.is-revealed .poster-cosmic-canvas {
+  opacity: 0.42;
+  transform: scale(0.95);
+}
+
+/* En mode teaser héroïque, 100% de brillance et d'impact visuel */
+.is-teaser .poster-cosmic-canvas {
+  opacity: 1;
+  transform: scale(1);
+}

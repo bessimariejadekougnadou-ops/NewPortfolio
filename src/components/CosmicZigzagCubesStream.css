@@ -1,0 +1,190 @@
+/* ===================================================================
+   COSMIC ZIGZAG CUBES STREAM (CodePen 3D Blocks Full-Page Stream)
+   S'étend sur tout le portfolio en tissant des zigzags d'une section à l'autre
+   Utilise la palette violette cosmique de l'Accueil (#130924)
+   =================================================================== */
+
+.cosmic-zigzag-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  contain: layout paint;
+}
+
+/* Ligne SVG sinueuse en zigzag reliant les cubes */
+.zigzag-svg-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.35));
+}
+
+/* Ancre 3D de chaque cube sur le tracé en zigzag */
+.zigzag-cube-anchor {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Boîte 3D volumétrique */
+.zigzag-cube-box {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  filter: drop-shadow(0 16px 28px rgba(10, 4, 25, 0.7)) drop-shadow(0 0 18px rgba(168, 85, 247, 0.45));
+}
+
+/* Faces volumétriques du cube */
+.zigzag-cube-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  backface-visibility: visible;
+  overflow: hidden;
+}
+
+/* ===================================================================
+   STYLE VIOLET COSMIQUE (Inspiré de l'Accueil #130924)
+   =================================================================== */
+
+/* Face Avant : Lueur stellaire violette avec logo éclatant */
+.cube-theme-cosmic-stream .zigzag-cube-face-front {
+  background: linear-gradient(135deg, rgba(38, 18, 82, 0.96) 0%, rgba(19, 9, 42, 0.98) 100%);
+  border: 1.8px solid rgba(192, 132, 252, 0.8);
+  box-shadow: inset 0 0 14px rgba(168, 85, 247, 0.45), 0 0 16px rgba(168, 85, 247, 0.4);
+}
+
+/* Face Arrière : Second logo avec bordure violette */
+.cube-theme-cosmic-stream .zigzag-cube-face-back {
+  background: linear-gradient(135deg, rgba(30, 14, 68, 0.96) 0%, rgba(15, 7, 34, 0.98) 100%);
+  border: 1.8px solid rgba(192, 132, 252, 0.65);
+  box-shadow: inset 0 0 12px rgba(147, 51, 234, 0.4);
+}
+
+/* Face Supérieure : Reflet clair zénithal améthyste */
+.cube-theme-cosmic-stream .zigzag-cube-face-top {
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.95) 0%, rgba(76, 29, 149, 0.98) 100%);
+  border: 1.8px solid rgba(216, 180, 254, 0.85);
+  box-shadow: inset 0 0 14px rgba(255, 255, 255, 0.6);
+}
+
+/* Face Droite : Ombre latérale violet nuit */
+.cube-theme-cosmic-stream .zigzag-cube-face-right {
+  background: linear-gradient(135deg, rgba(16, 7, 36, 0.98) 0%, rgba(8, 3, 18, 1) 100%);
+  border: 1.8px solid rgba(126, 34, 206, 0.55);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.85);
+}
+
+/* Face Gauche : Ombre douce */
+.cube-theme-cosmic-stream .zigzag-cube-face-left {
+  background: linear-gradient(135deg, rgba(24, 12, 54, 0.96) 0%, rgba(14, 6, 30, 0.98) 100%);
+  border: 1.8px solid rgba(147, 51, 234, 0.55);
+}
+
+/* Face Inférieure : Ombre portée */
+.cube-theme-cosmic-stream .zigzag-cube-face-bottom {
+  background: #080312;
+  border: 1.8px solid #05020c;
+}
+
+/* ===================================================================
+   VARIANTE CODEPEN CLASSIQUE (Alternée pour donner du relief)
+   =================================================================== */
+
+.cube-theme-codepen-stream .zigzag-cube-face-front {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  border: 2px solid #cbd5e1;
+  box-shadow: inset 0 0 10px rgba(148, 163, 184, 0.35), 0 0 16px rgba(168, 85, 247, 0.35);
+}
+
+.cube-theme-codepen-stream .zigzag-cube-face-back {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 2px solid #cbd5e1;
+  box-shadow: inset 0 0 10px rgba(148, 163, 184, 0.35);
+}
+
+.cube-theme-codepen-stream .zigzag-cube-face-top {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  border: 2px solid #cbd5e1;
+  box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.85);
+}
+
+.cube-theme-codepen-stream .zigzag-cube-face-right {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  border: 2px solid #64748b;
+  box-shadow: inset 0 0 14px rgba(15, 23, 42, 0.5);
+}
+
+.cube-theme-codepen-stream .zigzag-cube-face-left {
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+  border: 2px solid #94a3b8;
+}
+
+.cube-theme-codepen-stream .zigzag-cube-face-bottom {
+  background: #334155;
+  border: 2px solid #1e293b;
+}
+
+/* ===================================================================
+   RESPONSIVE & ACCESSIBILITÉ
+   =================================================================== */
+
+@media (max-width: 1023px) {
+  .zigzag-cube-anchor[data-hide-tablet="true"] {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .zigzag-cube-anchor[data-hide-mobile="true"] {
+    display: none !important;
+  }
+
+  .zigzag-cube-box {
+    transform: scale(0.78);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .zigzag-cube-anchor,
+  .zigzag-cube-box {
+    transform: none !important;
+  }
+}
+
+box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.85);
+}
+
+/* --- Face Inférieure : Ombre portée profonde --- */
+.cube-face-bottom {
+  background: #06020c;
+  border: 1px solid rgba(100, 30, 160, 0.45);
+}
+
+/* Adaptation petits écrans */
+@media (max-width: 640px) {
+  .cosmic-accompanying-stream-viewport {
+    perspective: 900px;
+  }
+}

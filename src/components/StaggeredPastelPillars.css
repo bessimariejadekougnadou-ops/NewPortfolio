@@ -1,0 +1,353 @@
+/* ===================================================================
+   STAGGERED COSMIC PILLARS CSS
+   Inspiré directement de la référence (Barkin' Baxter layout + LERP cursor) :
+   - Cartes stylisées avec la couleur du haut de la page d'accueil (#130924)
+   - Reflets cosmiques améthyste et bordures néon lilas (#c084fc / #a855f7)
+   - Typographie éditoriale blanche & citations des 3 piliers
+   - Lueur diffuse d'ambiance interactive violette qui suit la souris (LERP)
+   - Bouton avec bordure dégradée violet cosmique
+   - Micro-animations de flottaison organiques
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.staggered-pillars-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow: visible;
+}
+
+/* 1. Curseur lumineux d'ambiance LERP aux teintes violet cosmique (#130924 / #a855f7) */
+.ambient-glow-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      rgba(168, 85, 247, 0.45) 0%,
+      rgba(147, 51, 234, 0.28) 40%,
+      rgba(19, 9, 36, 0.15) 65%,
+      transparent 85%);
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* 2. En-tête éditorial style référence */
+.staggered-pillars-header {
+  position: relative;
+  z-index: 1;
+  max-width: 380px;
+}
+
+.staggered-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e9d5ff;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.staggered-title-main {
+  font-family: 'Newsreader', 'Syne', serif;
+  font-weight: 600;
+  font-size: clamp(1.85rem, 2.6vw, 2.35rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #ffffff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  margin: 0 0 0.8rem 0;
+}
+
+.staggered-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.92rem;
+  max-width: 360px;
+  font-weight: 500;
+  color: rgba(233, 213, 255, 0.9);
+  line-height: 1.55;
+  margin: 0 0 1.25rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Bouton avec fond #130924 et bordure en dégradé néon violet */
+.gradient-touch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #130924;
+  position: relative;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(19, 9, 36, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  z-index: 2;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.gradient-touch-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #a855f7 0%, #c084fc 50%, #7c3aed 100%);
+  z-index: -1;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-touch-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(168, 85, 247, 0.45);
+  color: #ffffff;
+}
+
+/* 4. Cascade de Cartes Cosmiques Étagées (#130924) */
+.staggered-cards-stage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  min-height: 500px;
+  margin-top: 1.25rem;
+  z-index: 1;
+}
+
+/* Carte générique aux couleurs du haut de la page d'accueil - Format Rectangle Élégant */
+.pastel-quote-card {
+  position: absolute;
+  border-radius: 18px;
+  padding: 1.15rem 1.6rem;
+  box-sizing: border-box;
+  background-color: #130924;
+  box-shadow: 0 20px 48px rgba(10, 5, 25, 0.7), 0 0 20px rgba(168, 85, 247, 0.15);
+  border: 1.5px solid rgba(192, 132, 252, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease, z-index 0.1s;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pastel-quote-card:hover {
+  z-index: 10 !important;
+  box-shadow: 0 28px 65px rgba(10, 5, 25, 0.85), 0 0 30px rgba(168, 85, 247, 0.4);
+  border-color: rgba(216, 180, 254, 0.9);
+}
+
+.pastel-card-title {
+  font-family: 'Newsreader', serif;
+  font-size: clamp(1.08rem, 1.35vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.pastel-card-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.52;
+  margin: 0;
+  color: rgba(233, 213, 255, 0.9);
+}
+
+.pastel-card-author {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c084fc;
+  margin-top: 0.15rem;
+}
+
+/* --- CARTE 1 : Haut Gauche - Format Rectangle (400px) --- */
+.card-cream {
+  top: 0;
+  left: 0;
+  width: 400px;
+  background: linear-gradient(145deg, #1d0f36 0%, #130924 100%);
+  border-color: rgba(192, 132, 252, 0.45);
+  box-shadow: 0 20px 48px rgba(10, 5, 25, 0.65), 0 0 20px rgba(168, 85, 247, 0.15);
+  z-index: 1;
+  animation: floatCard1 8s ease-in-out infinite;
+}
+
+.card-cream .pastel-card-title {
+  color: #ffffff;
+}
+
+.card-cream .pastel-card-desc {
+  color: rgba(233, 213, 255, 0.9);
+}
+
+.card-cream .pastel-card-author {
+  color: #c084fc;
+}
+
+/* --- CARTE 2 : Milieu Droite - Format Rectangle (400px) --- */
+.card-mint {
+  top: 105px;
+  left: 75px;
+  width: 400px;
+  background: linear-gradient(145deg, #241142 0%, #130924 100%);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 24px 54px rgba(10, 5, 25, 0.7), 0 0 24px rgba(192, 132, 252, 0.2);
+  z-index: 2;
+  animation: floatCard2 9s ease-in-out infinite;
+}
+
+.card-mint .pastel-card-title {
+  color: #ffffff;
+}
+
+.card-mint .pastel-card-desc {
+  color: rgba(233, 213, 255, 0.9);
+}
+
+.card-mint .pastel-card-author {
+  color: #d8b4fe;
+}
+
+/* --- CARTE 3 : Bas Centre - Format Rectangle (400px) --- */
+.card-blush {
+  top: 215px;
+  left: 20px;
+  width: 400px;
+  background: linear-gradient(145deg, #29144a 0%, #130924 100%);
+  border-color: rgba(216, 180, 254, 0.55);
+  box-shadow: 0 26px 58px rgba(10, 5, 25, 0.75), 0 0 28px rgba(168, 85, 247, 0.25);
+  z-index: 3;
+  animation: floatCard3 7.5s ease-in-out infinite;
+}
+
+.card-blush .pastel-card-title {
+  color: #ffffff;
+}
+
+.card-blush .pastel-card-desc {
+  color: rgba(233, 213, 255, 0.9);
+}
+
+.card-blush .pastel-card-author {
+  color: #c084fc;
+}
+
+/* Micro-animations douces de flottaison */
+@keyframes floatCard1 {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-0.8deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(-0.3deg);
+  }
+}
+
+@keyframes floatCard2 {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(1.2deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(0.6deg);
+  }
+}
+
+@keyframes floatCard3 {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-0.5deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-1deg);
+  }
+}
+
+/* Survol : fige la flottaison et élève la carte avec fluidité */
+.card-cream:hover {
+  animation-play-state: paused;
+  transform: translateY(-12px) rotate(0deg) scale(1.02);
+}
+
+.card-mint:hover {
+  animation-play-state: paused;
+  transform: translateY(-12px) rotate(0deg) scale(1.02);
+}
+
+.card-blush:hover {
+  animation-play-state: paused;
+  transform: translateY(-12px) rotate(0deg) scale(1.02);
+}
+
+/* Adaptation pour écrans plus petits */
+@media (max-width: 768px) {
+  .staggered-cards-stage {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .pastel-quote-card {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .ambient-glow-cursor {
+    display: none;
+  }
+}
+
+/* Agrandissement demandé : les trois ancres de cascade restent inchangées. */
+@media (min-width: 769px) {
+  .staggered-cards-stage { max-width: 640px; }
+  .card-cream,
+  .card-mint,
+  .card-blush { width: 520px; }
+}

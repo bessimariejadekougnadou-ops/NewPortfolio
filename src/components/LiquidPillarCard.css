@@ -1,0 +1,142 @@
+/* ===================================================================
+   LIQUID PILLAR CARD (Animation Morphing SVG Vague Liquide GSAP)
+   - Transition liquide organique entre face avant (résumé éditorial)
+     et face arrière (détails & compétences)
+   - Palette : Frosted Lavender White <-> Cosmic Obsidian Violet #130924
+   =================================================================== */
+
+.liquid-pillar-card {
+  position: relative;
+  width: 100%;
+  border-radius: 1.25rem; /* rounded-2xl */
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  contain: paint;
+  min-height: 195px;
+}
+
+.liquid-pillar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(35, 25, 75, 0.12);
+}
+
+/* 1. Overlay SVG liquide qui balaie la carte */
+.liquid-overlay-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.liquid-overlay-path {
+  fill: #130924; /* Violet cosmique profond de l'accueil */
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.4));
+}
+
+/* 2. Face Avant (Résumé Clair & Aéré) */
+.pillar-face-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 1.35rem 1.45rem;
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  z-index: 5;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.liquid-pillar-card:hover .pillar-face-front {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* 3. Face Arrière (Révélation Sombre Haute Fidélité #130924) */
+.pillar-face-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.35rem 1.45rem;
+  background: linear-gradient(145deg, #180c32 0%, #130924 100%);
+  border: 1.5px solid rgba(192, 132, 252, 0.45);
+  box-shadow: inset 0 0 24px rgba(168, 85, 247, 0.2);
+  border-radius: 1.25rem;
+  display: none; /* Basculé à flex par GSAP pendant la transition */
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  z-index: 5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* Boutons de commande d'ouverture / fermeture */
+.pillar-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.pillar-action-btn-front {
+  background: rgba(19, 9, 36, 0.08);
+  color: #1a0f37;
+  border: 1px solid rgba(19, 9, 36, 0.15);
+}
+
+.liquid-pillar-card:hover .pillar-action-btn-front {
+  background: #130924;
+  color: #ffffff;
+  border-color: #130924;
+  box-shadow: 0 4px 12px rgba(19, 9, 36, 0.25);
+}
+
+.pillar-action-btn-back {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f3e8ff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pillar-action-btn-back:hover {
+  background: #ffffff;
+  color: #130924;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+}
+
+/* Badges de mots-clés sur la face arrière */
+.pillar-keyword-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  color: #f3e8ff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.pillar-keyword-pill:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(192, 132, 252, 0.6);
+  transform: translateY(-1px);
+}

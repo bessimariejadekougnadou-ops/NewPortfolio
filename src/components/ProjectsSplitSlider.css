@@ -1,0 +1,437 @@
+/* ==========================================================================
+   ProjectsSplitSlider.css — Split-Wipe Multi-Layer GSAP Observer Slider
+   Variable font width animation, dual-image parallax, and split-wipe reveals
+   ========================================================================== */
+
+@font-face {
+  font-family: "Bandeins Sans & Strange Variable";
+  src: url("https://res.cloudinary.com/dldmpwpcp/raw/upload/v1566406079/BandeinsStrangeVariable_esetvq.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap");
+
+/* ── Section Wrapper ── */
+.projects-split-section {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 90px;
+  padding: 0 24px;
+  isolation: isolate;
+}
+
+/* ── Main Interactive Slider Stage (Sans carte ni boîte en arrière-plan) ── */
+.projects-slider-stage {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  min-height: 680px;
+  max-height: 920px;
+  overflow: hidden;
+  border-radius: 0;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  user-select: none;
+}
+
+/* ── Individual Slides (Split Outer & Inner for Wipe) ── */
+.projects-slider-stage .slide {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 0;
+  background: transparent;
+}
+
+.projects-slider-stage .slide:nth-of-type(1) {
+  visibility: visible;
+}
+
+.projects-slider-stage .slide__outer,
+.projects-slider-stage .slide__inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.projects-slider-stage .slide__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: transparent !important;
+}
+
+/* Pas de carte en arrière-plan : fond 100% transparent pour se fondre dans le cosmos */
+.projects-slider-stage .slide:nth-of-type(1) .slide__content,
+.projects-slider-stage .slide:nth-of-type(2) .slide__content,
+.projects-slider-stage .slide:nth-of-type(3) .slide__content,
+.projects-slider-stage .slide:nth-of-type(4) .slide__content {
+  background: transparent !important;
+}
+
+/* ── Grid Container inside each slide ── */
+.projects-slider-stage .slide__container {
+  position: relative;
+  max-width: 1400px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  padding: 0 3rem;
+}
+
+/* ── Variable Font Animated Heading ── */
+.projects-slider-stage .slide__heading {
+  --width: 200;
+  display: block;
+  text-align: left;
+  font-family: "Bandeins Sans & Strange Variable", "Syne", sans-serif;
+  font-size: clamp(3.5rem, 9.5vw, 10.5rem);
+  font-weight: 900;
+  font-variation-settings: "wdth" var(--width);
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  z-index: 10;
+  mix-blend-mode: difference;
+  grid-area: 1 / 1 / 4 / 10;
+  align-self: end;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+}
+
+/* Fallback for browsers that don't support font-variation-settings on this font */
+@supports not (font-variation-settings: "wdth" 200) {
+  .projects-slider-stage .slide__heading {
+    letter-spacing: calc((var(--width) - 200) * 0.003em);
+  }
+}
+
+/* ── Primary Slide Image ── */
+.projects-slider-stage .slide__img-cont {
+  margin: 0;
+  grid-area: 3 / 1 / 8 / 6;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  z-index: 1;
+}
+
+.projects-slider-stage .slide__img-cont img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+}
+
+/* ── Top Badge on Slide Image ── */
+.slide-category-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(20, 9, 44, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #e9d5ff;
+}
+
+/* ── Overlay Layer (Complementary Parallax Image + Counter) ── */
+.projects-slider-stage .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.projects-slider-stage .overlay__content {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3rem;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.projects-slider-stage .overlay__img-cont {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  grid-area: 4 / 5 / 9 / 11;
+  border-radius: 22px;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+}
+
+.projects-slider-stage .overlay__img-cont img.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform-origin: center center;
+}
+
+.projects-slider-stage .overlay__count {
+  grid-area: 3 / 10 / 4 / 11;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(3.2rem, 5.5vw, 7.5rem);
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  color: #ffffff;
+  border-bottom: 5px solid #c084fc;
+  line-height: 1;
+  align-self: center;
+  text-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+  letter-spacing: -0.02em;
+}
+
+/* ── Floating Controls Bar (Bottom of Stage) ── */
+.stage-floating-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 32px;
+  right: 32px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+
+.stage-project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 480px;
+}
+
+.stage-project-tagline {
+  font-size: 0.92rem;
+  color: rgba(233, 213, 255, 0.95);
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.stage-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stage-btn-case-study {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.stage-btn-case-study:hover {
+  background: #6d28d9;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(168, 85, 247, 0.6);
+}
+
+.stage-link-icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.stage-link-icon-btn:hover {
+  background: #7c3aed;
+  border-color: #c084fc;
+  transform: scale(1.1);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.5);
+}
+
+/* ── Navigation Arrows & Dots ── */
+.stage-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stage-nav-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(25, 12, 54, 0.85);
+  color: #ffffff;
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.stage-nav-arrow:hover {
+  background: #7c3aed;
+  border-color: #c084fc;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+}
+
+.stage-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stage-dot.active {
+  width: 26px;
+  background: #c084fc;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.8);
+}
+
+/* ── Interaction Hint ── */
+.stage-hint-pill {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(20, 9, 44, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  font-size: 0.76rem;
+  color: rgba(233, 213, 255, 0.8);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+
+/* ── Responsive Adaptations ── */
+@media screen and (max-width: 900px) {
+  .projects-split-section {
+    padding: 0 16px;
+  }
+
+  .projects-slider-stage {
+    height: 88vh;
+    min-height: 620px;
+    border-radius: 0;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .projects-slider-stage .slide__container,
+  .projects-slider-stage .overlay__content {
+    padding: 0 1.25rem;
+  }
+
+  .projects-slider-stage .slide__heading {
+    grid-area: 1 / 1 / 3 / 11;
+    font-size: clamp(2.6rem, 11vw, 5.5rem);
+    line-height: 0.95;
+  }
+
+  .projects-slider-stage .slide__img-cont {
+    grid-area: 3 / 1 / 7 / 8;
+    border-radius: 16px;
+  }
+
+  .projects-slider-stage .overlay__img-cont {
+    grid-area: 6 / 5 / 10 / 11;
+    border-radius: 16px;
+  }
+
+  .projects-slider-stage .overlay__count {
+    grid-area: 2 / 8 / 3 / 11;
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    border-bottom-width: 4px;
+  }
+
+  .stage-floating-bar {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .stage-action-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .stage-hint-pill {
+    display: none;
+  }
+}

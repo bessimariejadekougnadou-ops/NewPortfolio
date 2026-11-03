@@ -1,0 +1,804 @@
+/* ==========================================================================
+   SkillsUniverse.css — Exact match of the reference Cosmic Galaxy Universe
+   • Photorealistic Central Galaxy accretion disk with starburst flare
+   • Giant celestial gas planets in top-left and bottom-right corners
+   • Category orbital loops and global asteroid debris paths
+   • Floating skill categories without card backgrounds
+   ========================================================================== */
+
+/* ══════════════════════════════════════════════════════════
+   ROOT WRAPPER — Transparent & Full-Bleed (No nested rectangle)
+   ══════════════════════════════════════════════════════════ */
+.su-root {
+  position: relative;
+  width: 100%;
+  padding: 10px 24px 60px;
+  overflow: visible;
+  isolation: isolate;
+  background: transparent;
+  color: #ffffff;
+}
+
+/* ══════════════════════════════════════════════════════════
+   STARFIELD
+   ══════════════════════════════════════════════════════════ */
+.su-starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.su-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: su-star-twinkle 3.2s ease-in-out infinite alternate;
+}
+.su-star:nth-child(3n)  { background: #c4b5fd; }
+.su-star:nth-child(4n)  { background: #c4b5fd; }
+.su-star:nth-child(7n)  { background: #f472b6; }
+
+@keyframes su-star-twinkle {
+  0%   { opacity: 0.15; transform: scale(0.75); }
+  100% { opacity: 0.95; transform: scale(1.35); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   NEBULA GLOWS
+   ══════════════════════════════════════════════════════════ */
+.su-nebula {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+  z-index: 0;
+}
+.su-nebula--top-left {
+  width: 48vw; max-width: 600px;
+  aspect-ratio: 1;
+  top: -12%; left: -10%;
+  background: radial-gradient(circle, rgba(108, 92, 231, 0.35) 0%, rgba(76, 29, 149, 0.18) 42%, transparent 72%);
+  animation: su-nebula-float 24s ease-in-out infinite alternate;
+}
+.su-nebula--top-right {
+  width: 42vw; max-width: 520px;
+  aspect-ratio: 1;
+  top: -8%; right: -8%;
+  background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(59, 7, 100, 0.16) 46%, transparent 74%);
+  animation: su-nebula-float 28s ease-in-out infinite alternate-reverse;
+}
+.su-nebula--center {
+  width: 60vw; max-width: 760px;
+  aspect-ratio: 1;
+  top: 48%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(108, 92, 231, 0.22) 0%, rgba(91, 33, 182, 0.12) 40%, transparent 70%);
+  filter: blur(110px);
+}
+.su-nebula--bottom {
+  width: 44vw; max-width: 500px;
+  aspect-ratio: 1;
+  bottom: -10%; left: 28%;
+  background: radial-gradient(circle, rgba(108, 92, 231, 0.22) 0%, transparent 68%);
+}
+
+@keyframes su-nebula-float {
+  from { transform: translate(-15px, 10px) scale(0.94); }
+  to   { transform: translate(15px, -15px) scale(1.06); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CORNER CELESTIAL PLANETS (Top-Left & Bottom-Right)
+   ══════════════════════════════════════════════════════════ */
+.su-corner-planet {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Top-Left Planet: Giant purple gas sphere with glowing crescent */
+.su-corner-planet--top-left {
+  top: -80px;
+  left: -80px;
+  width: clamp(200px, 22vw, 320px);
+  height: clamp(200px, 22vw, 320px);
+  box-shadow:
+    0 0 60px rgba(168, 85, 247, 0.45),
+    0 0 120px rgba(108, 92, 231, 0.28);
+  animation: su-planet-breathe 14s ease-in-out infinite alternate;
+}
+.su-corner-planet--top-left .su-corner-planet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(-35deg) scale(1.06);
+}
+
+/* Bottom-Right Planet: Giant purple gas sphere */
+.su-corner-planet--bottom-right {
+  position: absolute;
+  right: -60px;
+  bottom: -70px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #c084fc 0%, #7c3aed 40%, #3b0764 75%, #18052e 100%);
+  box-shadow:
+    inset -15px -15px 35px rgba(0, 0, 0, 0.8),
+    0 0 50px rgba(168, 85, 247, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.su-corner-planet--bottom-right .su-corner-planet-glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.35) 0%, transparent 70%);
+  filter: blur(14px);
+}
+
+.su-satellite-moon {
+  position: absolute;
+  top: 15%;
+  left: -20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f1f5f9 0%, #cbd5e1 55%, #475569 100%);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.6);
+  animation: su-moon-orbit 16s ease-in-out infinite alternate;
+}
+
+/* ── Concentric Grand Orbits ── */
+.su-grand-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(192, 132, 252, 0.18);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.su-grand-orbit--1 {
+  width: 580px;
+  height: 580px;
+  border-color: rgba(192, 132, 252, 0.22);
+}
+
+.su-grand-orbit--2 {
+  width: 820px;
+  height: 820px;
+  border-color: rgba(168, 85, 247, 0.16);
+  animation: su-orbit-spin 120s linear infinite;
+}
+
+.su-grand-orbit--3 {
+  width: 1080px;
+  height: 1080px;
+  border-color: rgba(192, 132, 252, 0.12);
+  animation: su-orbit-spin 180s linear infinite reverse;
+}
+
+.su-orbit-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #c084fc;
+}
+.su-orbit-node--1 { top: 15%; left: 20%; }
+.su-orbit-node--2 { bottom: 25%; right: 18%; }
+
+/* Small asteroid debris along orbits */
+.su-debris {
+  position: absolute;
+  border-radius: 50%;
+  background: #cbd5e1;
+  box-shadow: 0 0 6px #fff;
+}
+.su-debris--1 { width: 3px; height: 3px; top: 12%; left: 24%; }
+.su-debris--2 { width: 4px; height: 4px; bottom: 18%; left: 78%; }
+.su-debris--3 { width: 2px; height: 2px; top: 82%; left: 32%; }
+.su-debris--4 { width: 3.5px; height: 3.5px; top: 22%; right: 28%; }
+.su-debris--5 { width: 2.5px; height: 2.5px; bottom: 26%; left: 16%; }
+.su-debris--6 { width: 3px; height: 3px; top: 68%; right: 20%; }
+
+/* ══════════════════════════════════════════════════════════
+   MAIN STAGE — 3 Columns Grid
+   ══════════════════════════════════════════════════════════ */
+.su-stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr minmax(360px, 580px) 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0;
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* Galaxy spans rows 1 & 2 in center */
+.su-galaxy-area {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  padding: 10px 0;
+}
+
+.su-galaxy-spacer {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Tools spans row 3 full width */
+.su-group--tools {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CENTRAL PHOTOREALISTIC GALAXY ACCRETION DISK
+   ══════════════════════════════════════════════════════════ */
+.su-galaxy-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 16 / 9.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+/* Supernova shockwave burst when arriving on section */
+.su-galaxy-shockwave {
+  position: absolute;
+  top: 48%;
+  left: 49.5%;
+  transform: translate(-50%, -50%) scale(0.2);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(192, 132, 252, 0.95);
+  box-shadow:
+    0 0 35px rgba(168, 85, 247, 0.9),
+    0 0 70px rgba(108, 92, 231, 0.6),
+    inset 0 0 25px rgba(56, 189, 248, 0.6);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+}
+
+/* Intense nebula halo behind the galaxy (homepage purple) */
+.su-galaxy-halo {
+  position: absolute;
+  inset: -15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 50%,
+    rgba(108, 92, 231, 0.45) 0%,
+    rgba(147, 51, 234, 0.28) 35%,
+    rgba(56, 189, 248, 0.12) 55%,
+    transparent 75%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Disk wrapper with seamless cosmic mask and screen blend */
+.su-galaxy-disc-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  mix-blend-mode: screen;
+  /* Smooth radial mask — fades galaxy image edges seamlessly into homepage violet */
+  -webkit-mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, #000 30%, rgba(0,0,0,0.8) 55%, transparent 82%);
+  mask-image: radial-gradient(ellipse 68% 58% at 50% 50%, #000 30%, rgba(0,0,0,0.8) 55%, transparent 82%);
+  animation: su-galaxy-drift 10s ease-in-out infinite alternate;
+}
+
+.su-galaxy-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.15) contrast(1.18) saturate(1.25);
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes su-galaxy-drift {
+  0%   { transform: translateY(0) scale(0.98); }
+  100% { transform: translateY(-7px) scale(1.02); }
+}
+
+/* Radiant white core burst overlay */
+.su-galaxy-core-burst {
+  position: absolute;
+  top: 48%;
+  left: 49.5%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fdf4ff 22%, rgba(232, 121, 249, 0.8) 45%, rgba(168, 85, 247, 0.4) 70%, transparent 100%);
+  box-shadow:
+    0 0 25px #ffffff,
+    0 0 50px #c084fc,
+    0 0 80px #7c3aed;
+  pointer-events: none;
+}
+
+.su-galaxy-core-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.9) 25%, rgba(192, 132, 252, 0.7) 50%, transparent 80%);
+  box-shadow:
+    0 0 40px #ffffff,
+    0 0 80px #c084fc;
+  pointer-events: none;
+  z-index: 5;
+  animation: su-galaxy-pulse 4s ease-in-out infinite alternate;
+}
+
+.su-galaxy-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.su-galaxy-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+.su-galaxy-ray--1 { transform: translate(-50%, -50%) rotate(35deg); }
+.su-galaxy-ray--2 { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.su-accretion-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(192, 132, 252, 0.3);
+  pointer-events: none;
+  z-index: 2;
+}
+.su-accretion-orbit--inner {
+  width: 240px;
+  height: 240px;
+  animation: su-orbit-spin 40s linear infinite;
+}
+.su-accretion-orbit--outer {
+  width: 320px;
+  height: 320px;
+  animation: su-orbit-spin 60s linear infinite reverse;
+}
+/* ══════════════════════════════════════════════════════════
+   FLOATING GROUPS — free-floating text + icons, NO cards
+   ══════════════════════════════════════════════════════════ */
+.su-floating-group {
+  position: relative;
+  padding: 16px 20px;
+  will-change: transform, opacity;
+}
+
+/* Group-specific orbital rings encircling each section */
+.su-cat-orbit {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 01 Front-End Orbit */
+.su-cat-orbit--frontend {
+  width: 110%;
+  height: 125%;
+  top: -12%;
+  left: -8%;
+  border: 1px solid rgba(168, 85, 247, 0.26);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.12);
+  transform: rotate(-7deg);
+}
+
+/* 02 Back-End Orbit */
+.su-cat-orbit--backend {
+  width: 114%;
+  height: 130%;
+  top: -15%;
+  right: -8%;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.1);
+  transform: rotate(8deg);
+}
+
+/* 03 Mobile Orbit */
+.su-cat-orbit--mobile {
+  width: 116%;
+  height: 120%;
+  bottom: -10%;
+  left: -10%;
+  border: 1px solid rgba(232, 121, 249, 0.24);
+  transform: rotate(10deg);
+}
+
+/* 04 Database Orbit */
+.su-cat-orbit--database {
+  width: 112%;
+  height: 125%;
+  bottom: -12%;
+  right: -8%;
+  border: 1px solid rgba(192, 132, 252, 0.26);
+  box-shadow: 0 0 14px rgba(192, 132, 252, 0.12);
+  transform: rotate(-6deg);
+}
+
+/* 05 Tools Orbit — wide curved path along bottom */
+.su-cat-orbit--tools {
+  width: 88%;
+  height: 160%;
+  top: 15%;
+  left: 6%;
+  border: 1.5px solid rgba(168, 85, 247, 0.28);
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.18),
+    inset 0 0 20px rgba(124, 58, 237, 0.08);
+  transform: rotate(-1.5deg);
+}
+
+/* Little glowing node on orbit lines */
+.su-orbit-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px #c084fc;
+}
+.su-cat-orbit--frontend .su-orbit-node--1 { top: 15%; left: 85%; }
+.su-cat-orbit--backend  .su-orbit-node--1 { top: 80%; left: 10%; }
+.su-cat-orbit--tools    .su-orbit-node--1 { top: 12%; left: 20%; }
+.su-cat-orbit--tools    .su-orbit-node--2 { top: 14%; right: 22%; }
+
+/* Column Alignments */
+.su-group--frontend { padding-left: 28px; }
+.su-group--backend  { padding-right: 28px; text-align: right; }
+.su-group--mobile   { padding-left: 24px; }
+.su-group--database { padding-right: 24px; text-align: right; }
+.su-group--tools    { padding: 32px 0 0; text-align: center; }
+
+/* ── Heading: Number + Line ── */
+.su-group-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.su-group--backend  .su-group-heading,
+.su-group--database .su-group-heading {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+.su-group--tools .su-group-heading {
+  justify-content: center;
+}
+
+.su-group-num {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #c084fc;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+}
+.su-group-rule {
+  width: 34px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #a855f7, #c084fc);
+}
+.su-group--backend  .su-group-rule,
+.su-group--database .su-group-rule {
+  background: linear-gradient(270deg, #a855f7, #c084fc);
+}
+
+/* ── Group Titles ── */
+.su-group-title {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 4px;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(1.15rem, 1.85vw, 1.7rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  text-shadow:
+    0 0 24px rgba(192, 132, 252, 0.45),
+    0 0 50px rgba(124, 58, 237, 0.25);
+}
+.su-group--tools .su-group-title {
+  align-items: center;
+  font-size: clamp(1.35rem, 2.2vw, 2.05rem);
+}
+
+/* ── Group Descriptions ── */
+.su-group-desc {
+  margin: 0 0 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(224, 212, 255, 0.68);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.su-group--tools .su-group-desc {
+  margin-bottom: 22px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ICONS ROWS
+   ══════════════════════════════════════════════════════════ */
+.su-icons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 10px;
+}
+.su-icons-row--frontend {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px 10px;
+}
+.su-icons-row--backend {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 10px;
+  justify-items: center;
+}
+.su-icons-row--mobile {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 10px;
+}
+.su-icons-row--database {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.su-icons-row--tools {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 14px 12px;
+  justify-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Single Skill Item ── */
+.su-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: rgba(238, 230, 255, 0.88);
+  text-align: center;
+  letter-spacing: 0.01em;
+  cursor: default;
+  will-change: transform, opacity;
+  transition: color 0.22s ease, filter 0.22s ease;
+}
+.su-icon-item:hover {
+  color: #ffffff;
+  filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.95));
+}
+
+/* ── Dark Translucent Icon Box (like the reference) ── */
+.su-icon-box {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(168, 85, 247, 0.24);
+  color: #c4b5fd;
+  transition:
+    transform 0.24s cubic-bezier(0.2, 1, 0.35, 1),
+    background 0.24s ease,
+    border-color 0.24s ease,
+    box-shadow 0.24s ease;
+}
+.su-icon-item:hover .su-icon-box {
+  transform: translateY(-5px) scale(1.08);
+  background: rgba(168, 85, 247, 0.16);
+  border-color: rgba(192, 132, 252, 0.55);
+  box-shadow:
+    0 0 20px rgba(192, 132, 252, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.su-icon-box img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+/* GSAP Icon accent */
+.su-icon-box--gsap {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+.su-icon-item:hover .su-icon-box--gsap {
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+}
+
+.su-monogram {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  color: #c4b5fd;
+}
+
+/* ── Database Planet (shown next to PostgreSQL) ── */
+.su-db-planet {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+.su-db-planet-sphere {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #c084fc 0%, #7c3aed 40%, #3b0764 78%, #140326 100%);
+  box-shadow:
+    0 0 16px rgba(192, 132, 252, 0.6),
+    inset -3px -3px 8px rgba(0,0,0,0.6);
+  animation: su-db-planet-pulse 4s ease-in-out infinite alternate;
+}
+.su-db-planet-ring {
+  position: absolute;
+  width: 54px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 121, 249, 0.7);
+  box-shadow: 0 0 8px rgba(232, 121, 249, 0.5);
+  transform: rotate(-18deg);
+  pointer-events: none;
+}
+@keyframes su-db-planet-pulse {
+  0%   { transform: scale(0.96); }
+  100% { transform: scale(1.04); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER CAPTION
+   ══════════════════════════════════════════════════════════ */
+.su-footer-caption {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 48px;
+  text-align: center;
+}
+.su-caption-line {
+  width: 46px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
+}
+.su-caption-text {
+  margin: 0;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(216, 180, 254, 0.7);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVENESS
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .su-stage {
+    grid-template-columns: 1fr minmax(300px, 460px) 1fr;
+  }
+  .su-icons-row--tools {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .su-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-items: center;
+    text-align: center;
+  }
+  .su-group--backend,
+  .su-group--database,
+  .su-group--frontend,
+  .su-group--mobile {
+    padding: 0;
+    text-align: center;
+  }
+  .su-group-heading {
+    justify-content: center !important;
+  }
+  .su-group-title {
+    align-items: center;
+  }
+  .su-icons-row--backend,
+  .su-icons-row--database {
+    justify-content: center;
+  }
+  .su-galaxy-area {
+    order: -1;
+    max-width: 480px;
+    margin: 10px 0;
+  }
+  .su-corner-planet--top-left,
+  .su-corner-planet--bottom-right {
+    opacity: 0.45;
+  }
+}
+
+@media (max-width: 520px) {
+  .su-root {
+    padding: 32px 16px 44px;
+  }
+  .su-icons-row--frontend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .su-icons-row--tools {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,355 @@
+
+/* ==========================================================================
+   CERTIFICATES — Real photos in 3D perspective stacked layout
+   ========================================================================== */
+
+/* ── Section ── */
+.certs-section {
+  position: relative;
+  background: #210f44;
+  background-image:
+    radial-gradient(circle at 78% 18%, rgba(168,85,247,.28) 0%, transparent 52%),
+    radial-gradient(circle at 14% 84%, rgba(124,58,237,.28) 0%, transparent 46%),
+    linear-gradient(180deg,#210f44 0%,#2f135b 30%,#421a7c 58%,#2f135b 82%,#210f44 100%);
+  padding: 110px 24px 90px;
+  overflow: hidden;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+/* ── Memphis Backdrop ── */
+.certs-bg {
+  position: absolute; inset: 0;
+  pointer-events: none; overflow: hidden; z-index: 1;
+}
+
+.certs-bg__dots {
+  position: absolute;
+  background-image: radial-gradient(rgba(192,132,252,.38) 2px, transparent 2.5px);
+  background-size: 17px 17px;
+}
+.certs-bg__dots--tl { top:30px;  left:3%;  width:120px; height:170px; }
+.certs-bg__dots--tr { top:30px;  right:3%; width:145px; height:200px; }
+.certs-bg__dots--br { bottom:40px; right:3%; width:120px; height:150px; }
+.certs-bg__dots--bl { bottom:40px; left:3%;  width:130px; height:160px; }
+
+.certs-bg__plus {
+  position: absolute;
+  font-family: 'Outfit', sans-serif; font-weight: 300;
+  color: rgba(192,132,252,.38);
+  user-select: none;
+  animation: bgFloat 7s ease-in-out infinite alternate;
+}
+
+.certs-bg__diamond {
+  position: absolute;
+  border: 1.5px solid rgba(192,132,252,.32);
+  transform: rotate(45deg);
+  display: flex; align-items: center; justify-content: center;
+  animation: bgFloat 8s ease-in-out infinite alternate-reverse;
+}
+.certs-bg__diamond > div { width:50%; height:50%; border:1px dashed rgba(192,132,252,.22); }
+
+.certs-bg__squig {
+  position: absolute;
+  width: 110px; height: 28px;
+  animation: bgWiggle 5s ease-in-out infinite alternate;
+}
+
+.certs-bg__shapes {
+  position: absolute; right:4%; top:50%; transform:translateY(-50%);
+  width:55px; height:110px;
+}
+
+.certs-bg__x {
+  position: absolute; font-size:22px;
+  color: rgba(192,132,252,.38);
+  user-select: none; font-family: monospace;
+}
+
+.certs-bg__chevrons {
+  position: absolute; bottom:9%; left:47%;
+  font-family: 'Outfit', sans-serif; font-size:24px;
+  font-weight:800; letter-spacing:-2px;
+  color: rgba(192,132,252,.3); user-select:none;
+}
+
+.certs-bg__circles {
+  position: absolute; bottom:10%; left:14%;
+  width:70px; height:70px;
+}
+
+@keyframes bgFloat {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(-10px) rotate(7deg); }
+}
+@keyframes bgWiggle {
+  from { transform: scaleX(1) rotate(0deg); }
+  to   { transform: scaleX(1.1) rotate(3deg); }
+}
+
+/* ── 3D Fold Header (exact match: About / Skills / Projects) ── */
+.certs-header-3d-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.certs-folding-header {
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 820px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Ambient purple glow behind the title */
+.certs-fold-ambient-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px; height: 200px;
+  background: radial-gradient(ellipse, rgba(168,85,247,.28) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Eyebrow badge — identical to Skills section */
+.certs-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  color: #e9d5ff;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* The big section title */
+.certs-fold-title {
+  margin: 0;
+  text-align: center;
+}
+
+/* Subtitle paragraph */
+.certs-fold-subtitle {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(226,215,250,.82);
+  max-width: 580px;
+  text-align: center;
+  margin: 0;
+}
+
+
+/* ── Stage (arrows + deck) ── */
+.certs-stage {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; max-width: 1100px;
+}
+
+/* Navigation Arrows */
+.certs-arrow {
+  flex-shrink: 0;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(22,11,46,.8);
+  border: 1.5px solid rgba(192,132,252,.5);
+  color: #c084fc;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all .25s ease;
+  backdrop-filter: blur(10px);
+  z-index: 5;
+  position: absolute;
+}
+.certs-arrow--left  { left: 0; }
+.certs-arrow--right { right: 0; }
+
+.certs-arrow:hover {
+  background: rgba(124,58,237,.7);
+  border-color: #a855f7; color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 22px rgba(168,85,247,.6);
+}
+
+/* ── 3-D Deck ── */
+.certs-deck {
+  position: relative;
+  width: 780px;
+  height: 520px;
+  /* Perspective applied per card via transform */
+}
+
+/* ── Photo Cards ── */
+.cert-photo-card {
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform .55s cubic-bezier(.16,1,.3,1),
+              opacity   .45s ease,
+              filter    .45s ease;
+  will-change: transform, opacity;
+  background: #ffffff;
+  box-shadow: 0 32px 70px -12px rgba(8,3,20,.9),
+              0 0 0 1px rgba(255,255,255,.1);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.cert-photo-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Subtle glass shine highlight on surface */
+.cert-photo-card__shine {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,.12) 0%,
+    transparent 50%,
+    rgba(0,0,0,.1) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* FRONT — main tilted card facing viewer */
+.cert-photo-card--front {
+  transform: perspective(1600px)
+             rotateX(8deg) rotateY(-14deg) rotateZ(5deg)
+             translate3d(-28px, -8px, 80px);
+  z-index: 10; opacity: 1; filter: brightness(1);
+}
+
+.cert-photo-card--front:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 40px 80px -12px rgba(8,3,20,.95),
+              0 0 35px rgba(192,132,252,.35);
+}
+
+/* MID — second card peeking behind-right */
+.cert-photo-card--mid {
+  transform: perspective(1600px)
+             rotateX(8deg) rotateY(-14deg) rotateZ(5deg)
+             translate3d(58px, 46px, 0px);
+  z-index: 5; opacity: .85; filter: brightness(.78);
+}
+
+/* BACK — third card further behind */
+.cert-photo-card--back {
+  transform: perspective(1600px)
+             rotateX(8deg) rotateY(-14deg) rotateZ(5deg)
+             translate3d(138px, 94px, -80px);
+  z-index: 1; opacity: .55; filter: brightness(.6);
+}
+
+/* Label bar at bottom of front card */
+.cert-photo-card__label-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: linear-gradient(to top, rgba(15,6,32,.88) 0%, transparent 100%);
+  color: #e9d5ff;
+  font-size: .88rem; font-weight: 700;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+.cert-photo-card--front:hover .cert-photo-card__label-bar {
+  opacity: 1;
+}
+
+/* ── Controls ── */
+.certs-controls {
+  position: relative; z-index: 2;
+  display: flex; align-items: center;
+  gap: 22px; flex-wrap: wrap; justify-content: center;
+}
+
+.certs-counter {
+  font-family: var(--font-display);
+  font-size: .95rem; letter-spacing: .05em;
+  color: rgba(226,215,250,.9);
+}
+.certs-counter strong { font-size: 1.15rem; color: #fff; }
+
+/* Dot indicators */
+.certs-dots-nav { display: flex; gap: 8px; align-items: center; }
+
+.certs-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(192,132,252,.3);
+  border: 1.5px solid rgba(192,132,252,.5);
+  cursor: pointer; padding: 0;
+  transition: all .25s ease;
+}
+.certs-dot--active {
+  background: #c084fc; border-color: #e9d5ff;
+  width: 24px; border-radius: 9999px;
+  box-shadow: 0 0 10px rgba(192,132,252,.6);
+}
+
+.certs-pdf-btns { display: flex; gap: 10px; }
+
+.certs-pdf-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 9999px;
+  font-size: .84rem; font-weight: 700;
+  text-decoration: none;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(192,132,252,.35);
+  color: #e9d5ff;
+  transition: all .25s ease; backdrop-filter: blur(8px);
+}
+.certs-pdf-btn:hover {
+  background: rgba(124,58,237,.6); border-color:#a855f7; color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(168,85,247,.45);
+}
+.certs-pdf-btn--dl {
+  background: linear-gradient(135deg,#7c3aed,#a855f7);
+  border-color: rgba(255,255,255,.3); color: #fff;
+  box-shadow: 0 4px 14px rgba(124,58,237,.4);
+}
+.certs-pdf-btn--dl:hover { filter: brightness(1.15); }
+
+/* ── Responsive ── */
+@media (max-width: 950px) {
+  .certs-deck { width: 580px; height: 400px; }
+  .cert-photo-card--front { transform: perspective(1400px) rotateX(7deg) rotateY(-12deg) rotateZ(4deg) translate3d(-18px,-5px,60px); }
+  .cert-photo-card--mid   { transform: perspective(1400px) rotateX(7deg) rotateY(-12deg) rotateZ(4deg) translate3d(42px,35px,0); }
+  .cert-photo-card--back  { transform: perspective(1400px) rotateX(7deg) rotateY(-12deg) rotateZ(4deg) translate3d(95px,68px,-60px); }
+}
+
+@media (max-width: 680px) {
+  .certs-section { padding: 80px 12px 70px; gap: 32px; }
+  .certs-deck { width: 310px; height: 220px; }
+  .cert-photo-card--front { transform: perspective(900px) rotateX(5deg) rotateY(-10deg) rotateZ(3deg) translate3d(-10px,-3px,30px); }
+  .cert-photo-card--mid   { transform: perspective(900px) rotateX(5deg) rotateY(-10deg) rotateZ(3deg) translate3d(22px,18px,0); }
+  .cert-photo-card--back  { display: none; }
+  .certs-arrow { width: 42px; height: 42px; }
+}

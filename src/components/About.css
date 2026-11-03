@@ -1,0 +1,55 @@
+/* ==========================================================================
+   About.css
+   Style 3D Fold Transition pour l'En-tête "Sensibilité créative, rigueur d'ingénierie"
+   - Effet de pliage 3D perspective articulé avec la section Accueil
+   - Se plie en rentrant derrière l'Accueil lors du scroll
+   - Se déplie parfaitement à plat (100% lisible et complet) dans la zone de lecture
+   ========================================================================== */
+
+.about-header-3d-stage {
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+  transform-style: preserve-3d;
+  width: 100%;
+  overflow: visible;
+}
+
+.about-folding-header {
+  transform-style: preserve-3d;
+  transform-origin: center top;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  position: relative;
+}
+
+.about-fold-line {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Lueur d'ambiance et ombre 3D qui accompagnent la courbure du pliage */
+.about-fold-ambient-glow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  height: 80px;
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.28) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
+}
+
+/* GPU acceleration pour l'éjection animée de About */
+.staggered-pillars-header,
+.pastel-quote-card,
+.phone-scroll-wrapper,
+.cosmic-about-bg-container {
+  will-change: transform, opacity;
+}

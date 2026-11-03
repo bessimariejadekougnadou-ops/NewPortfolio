@@ -1,0 +1,68 @@
+/* ==========================================================================
+   PortfolioSectionHeading.css
+   Harmonisation Haute Fidélité de tous les Grands Titres de Section du Portfolio
+   • Typographie : Syne / Display 800/900
+   • Contraste maximal : Blanc Pur Éclatant (#ffffff) + Violet Néon Lumineux (#c084fc)
+   • 100% visible, aucun problème d'opacité ou de voile gris
+   ========================================================================== */
+
+.portfolio-section-heading {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: var(--font-display, 'Syne', sans-serif) !important;
+  font-size: clamp(2rem, 4.5vw, 3.4rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.025em !important;
+  text-transform: uppercase !important;
+  text-wrap: balance;
+  text-align: center !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.portfolio-section-heading-line {
+  display: inline-block;
+  opacity: 1 !important;
+}
+
+/* Ligne principale : Blanc pur avec ombre portée nette pour se détacher du fond */
+.portfolio-section-heading-line--main {
+  color: #ffffff !important;
+  text-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(255, 255, 255, 0.35);
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.85));
+}
+
+/* Ligne d'accentuation : Violet / Orchidée néon vibrant avec halo de lumière */
+.portfolio-section-heading-line--accent {
+  color: #c084fc !important;
+  text-shadow: 
+    0 0 25px rgba(192, 132, 252, 0.95),
+    0 0 50px rgba(168, 85, 247, 0.7);
+  filter: drop-shadow(0 0 20px rgba(192, 132, 252, 0.8));
+}
+
+/* Harmonisation pour chaque section */
+.projects-scroll-section .portfolio-section-heading {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+.skills-section-cosmic .portfolio-section-heading {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+.experience-spotlight-section .portfolio-section-heading {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+.contact-section .portfolio-section-heading {
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+@media (max-width: 640px) {
+  .portfolio-section-heading {
+    font-size: clamp(1.85rem, 8vw, 2.65rem) !important;
+  }
+}
